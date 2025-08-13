@@ -1,6 +1,6 @@
 
 
-#  Text-to-SQL Agent (Next.js + TypeScript + LangGraph + LLaMA-3.2 + Ollama)
+#  LlamaSQL (From English to exact SQL — with LLaMA 3.2 doing the heavy lifting)
 
 A small, friendly **Text-to-SQL Agent** built using **Next.js + TypeScript + LangGraph + LLaMA-3.2 + Ollama** application that converts natural language questions into SQLite queries and returns exact, structured results.   This project demonstrates a local LLM integration (Ollama or equivalent) with a text-to-SQL assistant and an in-browser interactive UI.  
 
