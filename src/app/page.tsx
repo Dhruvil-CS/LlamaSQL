@@ -19,17 +19,17 @@ import {
 
 type Payload =
   | {
-    ok: true;
-    sql: string;
-    rows: Array<Record<string, unknown>>;
-    rowCount: number;
-    scalar?: string | number | null;
-  }
+      ok: true;
+      sql: string;
+      rows: Array<Record<string, unknown>>;
+      rowCount: number;
+      scalar?: string | number | null;
+    }
   | {
-    ok: false;
-    sql?: string;
-    error: string;
-  };
+      ok: false;
+      sql?: string;
+      error: string;
+    };
 
 export default function Home() {
   const [inputMessage, setInputMessage] = useState("");
@@ -69,8 +69,7 @@ ${provinceNamesTable}
       const resp = await message(mapChatMessagesToStoredMessages(history));
 
       // Here I am storing AI message as a string
-      const text =
-        typeof resp === "string" ? resp : JSON.stringify(resp);
+      const text = typeof resp === "string" ? resp : JSON.stringify(resp);
       history.push(new AIMessage(text));
       setMessages(history);
     } catch (e: any) {
@@ -199,11 +198,7 @@ ${provinceNamesTable}
         <div className="flex lg:flex-1 items-center justify-center gap-3">
           <a href="#" className="m-1.5">
             <span className="sr-only">LlamaSQL</span>
-            <img
-              className="h-8 w-auto"
-              src="/watsonx.svg"
-              alt=""
-            />
+            <img className="h-8 w-auto" src="/watsonx.svg" alt="" />
           </a>
           <h1 className="text-black font-bold">LlamaSQL</h1>
         </div>
@@ -211,17 +206,18 @@ ${provinceNamesTable}
 
       <div className="flex flex-col h-full overflow-y-auto p-4 gap-2">
         {messages.map((m, index) => {
+          // USER messages → render on the RIGHT
           if (m instanceof HumanMessage) {
             return (
               <div
                 key={m.getType() + index}
-                className="col-start-1 col-end-8 p-3 rounded-lg"
+                className="col-start-6 col-end-13 p-3 rounded-lg"
               >
-                <div className="flex flex-row items-center">
+                <div className="flex items-center justify-start flex-row-reverse">
                   <div className="flex items-center justify-center h-8 w-8 rounded-full bg-orange-400 text-white flex-shrink-0 text-sm">
                     Me
                   </div>
-                  <div className="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl">
+                  <div className="relative mr-3 text-sm bg-white py-2 px-4 shadow rounded-xl">
                     <div>{m.content as string}</div>
                   </div>
                 </div>
@@ -229,17 +225,18 @@ ${provinceNamesTable}
             );
           }
 
+          // AI messages → render on the LEFT
           if (m instanceof AIMessage) {
             return (
               <div
                 key={m.getType() + index}
-                className="col-start-6 col-end-13 p-3 rounded-lg"
+                className="col-start-1 col-end-8 p-3 rounded-lg"
               >
-                <div className="flex items-center justify-start flex-row-reverse">
+                <div className="flex flex-row items-center">
                   <div className="flex items-center justify-center h-8 w-8 rounded-full bg-green-400 flex-shrink-0 text-sm">
                     AI
                   </div>
-                  <div className="relative mr-3 text-sm bg-indigo-100 py-3 px-4 shadow rounded-xl max-w-full overflow-x-auto">
+                  <div className="relative ml-3 text-sm bg-indigo-100 py-3 px-4 shadow rounded-xl max-w-full overflow-x-auto">
                     {renderAIMsg(m.content as string)}
                   </div>
                 </div>
