@@ -52,7 +52,11 @@ Verify it:
 ```bash
 ollama run llama3.2
 ```
+Run Ollama instance:
 
+```
+ollama serve
+```
 ---
 
 ## How It Works
@@ -84,6 +88,10 @@ npm run dev
 Then open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
+### Want to customize this project?
+
+To customize this project for your dataset, you would want to modify the schema in ./src/app/constants.ts and include your dataset by updating the file ./src/app/database.ts
+Need help? Feel free to contact me!
 
 ## License
 
