@@ -35,7 +35,7 @@ function toPayload(
   raw: unknown
 ): OkPayload | ErrPayload {
   // database.execute() returns either an array of rows
-  // or a stringified error. Normalize it here.
+  // or a stringified error. The following code Normalizes it.
   try {
     // Error path: execute might return a JSON string of an error
     if (typeof raw === "string") {
@@ -53,7 +53,7 @@ function toPayload(
     const rows = Array.isArray(raw) ? raw : [];
     const rowCount = rows.length;
 
-    // If it's a single row with a single column, expose scalar for nicer UI
+    // If it's a single row with a single column, then the following exposes scaler for better visual.
     let scalar: string | number | null | undefined = undefined;
     if (rowCount === 1) {
       const cols = Object.keys(rows[0] ?? {});
@@ -122,12 +122,12 @@ ${provinceNamesTable}
     tools: [getFromDB],
   });
 
-  // Invoke the agent
+  // The following invokes the agen
   const response = await agent.invoke({
     messages: deserialized,
   });
 
-  // Strategy to avoid hallucinations:
+  // I am using the following strategy to avoid hallucinations: (Let me know your ideas :))
   // 1) If any tool result exists, return the LAST tool result JSON directly.
   // 2) Else, try to extract a SQL block from the model's final message and execute it server-side.
   // 3) Else, return a structured error.
@@ -146,13 +146,14 @@ ${provinceNamesTable}
       : JSON.stringify(lastToolMsg.content);
   }
 
-  // Fallback: inspect last AI message for a SQL snippet
+  // The following inspects last AI message for a SQL snippet
   const last = msgs[msgs.length - 1];
   const finalText: string | undefined =
     typeof last?.content === "string" ? last.content : undefined;
 
   if (finalText) {
-    // Try fenced ```sql blocks first
+    // Well, currently I am running a RegEx to identify the SQL query from the response. If you have any recommendation
+    // I would love to discuss that.
     const fenceMatch = finalText.match(/```sql\s*([\s\S]*?)```/i);
     const inlineSql = fenceMatch?.[1]?.trim();
 
