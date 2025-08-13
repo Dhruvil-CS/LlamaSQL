@@ -88,10 +88,22 @@ npm run dev
 Then open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
-### Want to customize this project?
+## Want to customize this project?
 
 To customize this project for your dataset, you would want to modify the schema in ./src/app/constants.ts and include your dataset by updating the file ./src/app/database.ts
 Need help? Feel free to contact me!
+
+## Demo of the Tool
+
+The following image shows how the agent looks like when the user asks a query and it also shows the agent's response.
+
+![GUI Preview](images/demo.png)
+
+## Example schema used in this project:
+
+I have used the dataset schema available at [https://www.sql-practice.com/](https://www.sql-practice.com/).
+
+![Schema Preview](images/schema.png)
 
 ## License
 
