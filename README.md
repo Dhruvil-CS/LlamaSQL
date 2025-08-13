@@ -1,36 +1,98 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
 
-First, run the development server:
+#  Text-to-SQL Agent (Next.js + TypeScript + LangGraph + LLaMA-3.2 + Ollama)
+
+A small, friendly **Text-to-SQL Agent** built using **Next.js + TypeScript + LangGraph + LLaMA-3.2 + Ollama** application that converts natural language questions into SQLite queries and returns exact, structured results.   This project demonstrates a local LLM integration (Ollama or equivalent) with a text-to-SQL assistant and an in-browser interactive UI.  
+
+---
+
+##  Features
+
+- Natural language → SQLite queries using LangGraph / LangChain + Ollama (LLaMA-3.2)
+- In-memory seeded SQLite database for quick demo
+- Strict tool-based execution: server executes SQL and returns structured JSON (no hallucinated explanations)
+- Clean, responsive UI built with Next.js + Tailwind CSS
+- Nice rendering of results: scalar, rows, errors
+
+---
+## Quickstart (development)
+
+> Requirements
+> - Node.js 18+ (recommended)
+> - npm / pnpm / yarn
+> - [Ollama](https://ollama.ai/) or other LLM endpoint that `@langchain/ollama` can use (local Ollama is easiest for dev)
+
+---
+
+## Installation
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Dhruvil-CS/LlamaSQL.git
+cd LlamaSQL
+```
+
+### 2. Set Up Python Environment
+To run the application you need to install the necessary dependencies:
+```bash
+npm install
+```
+
+### 3. Install and Run Ollama (for LLaMA-3)
+
+Make sure [Ollama](https://ollama.com/) is installed and running locally:
+
+```bash
+ollama pull llama3.2
+```
+
+Verify it:
+
+```bash
+ollama run llama3.2
+```
+
+---
+
+## How It Works
+
+Not an SQL expert? No worries — the assistant is powered by LLaMA 3.2, so it helps you turn natural language into correct, double-quoted SQLite queries you can run and inspect. You get guidance and the exact results, even if you don’t speak SQL fluently.
+
+Excited to share something I’ve been building: a small but powerful **Text → SQL → Results** assistant.
+So I built a tool that:
+* understands plain English questions,
+* converts them into valid SQLite queries, and
+* executes them and returns the actual rows / scalar results — rendered as clean tables or single-value cards in the UI.
+
+What that means in practice: you can type “Show first name, last name and gender of patients whose gender is ‘M’” and get both the exact SQL and the real result set — not an explanation, not a hallucination. The agent follows a strict tool-first pattern so the model must call the DB tool and the server returns structured JSON (rows, rowCount, scalar or error), which the frontend renders beautifully. No guesswork. No prose. Just facts.
+
+### Tech stack
+* Next.js + TypeScript (frontend + server actions)
+* LangGraph / LangChain (agent orchestration) + @langchain/ollama (LLM)
+* SQLite (in-memory seeded DB for the demo)
+* Tailwind CSS for UI
+
+## Demo 
+
+Launch the app:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## License
 
-## Learn More
+N/A
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Author
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Dhruvil Kotecha**
+[LinkedIn](https://www.linkedin.com/in/dhruvil-kamleshkumar-kotecha-a627a31b1/) · [GitHub](https://github.com/Dhruvil-CS)
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
