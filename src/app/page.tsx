@@ -19,17 +19,17 @@ import {
 
 type Payload =
   | {
-      ok: true;
-      sql: string;
-      rows: Array<Record<string, unknown>>;
-      rowCount: number;
-      scalar?: string | number | null;
-    }
+    ok: true;
+    sql: string;
+    rows: Array<Record<string, unknown>>;
+    rowCount: number;
+    scalar?: string | number | null;
+  }
   | {
-      ok: false;
-      sql?: string;
-      error: string;
-    };
+    ok: false;
+    sql?: string;
+    error: string;
+  };
 
 export default function Home() {
   const [inputMessage, setInputMessage] = useState("");
@@ -55,7 +55,6 @@ ${provinceNamesTable}
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    // Optional: in dev this runs on each reload; safe because the seed deletes & reinserts
     seed();
   }, []);
 
@@ -69,7 +68,7 @@ ${provinceNamesTable}
     try {
       const resp = await message(mapChatMessagesToStoredMessages(history));
 
-      // Ensure we store AI message as a string
+      // Here I am storing AI message as a string
       const text =
         typeof resp === "string" ? resp : JSON.stringify(resp);
       history.push(new AIMessage(text));
@@ -199,14 +198,14 @@ ${provinceNamesTable}
       <header className="bg-white p-2 border-b">
         <div className="flex lg:flex-1 items-center justify-center gap-3">
           <a href="#" className="m-1.5">
-            <span className="sr-only">Text-to-SQL Agent</span>
+            <span className="sr-only">LlamaSQL</span>
             <img
               className="h-8 w-auto"
               src="/watsonx.svg"
               alt=""
             />
           </a>
-          <h1 className="text-black font-bold">Text-to-SQL Agent</h1>
+          <h1 className="text-black font-bold">LlamaSQL</h1>
         </div>
       </header>
 
@@ -260,7 +259,7 @@ ${provinceNamesTable}
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-            placeholder="Ask a question, e.g. Count male patients admitted in August 2025"
+            placeholder="Ask a question..."
             className="flex w-full border rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10"
           />
           <button
